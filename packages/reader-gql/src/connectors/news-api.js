@@ -1,45 +1,38 @@
 const axios = require("axios");
 const logger = require("pino")();
 
-// logger.level = "debug";
+logger.level = "debug";
 
 class NewsApi {
   constructor() {
-    // The connector is constructed this way to hide the API_KEY. The "caller"
-    // instance of axios exists only within the closure of this constructor.
-    // This is not a perfect solution for making the key inaccesabile, but it
-    // does make it difficult enough that it will not be inadvertently exposed.
-    // The downside of this pattern is that all of the methods that use the
-    // caller instance must be defined inside the closure too.
-    const baseOptions = {
-      baseUrl: "https://newsapi.org",
-      headers: {
-        Accepts: "applications/json",
-        Authorization: process.env.API_KEY,
-      },
+    this.url = "https://newsapi.org/v2/everything";
+    this.headers = {
+      Accept: "applications/json",
+      Authorization: process.env.API_KEY,
     };
+  }
 
-    this.getContent = async (params = {}) => {
-      try {
-        logger.debug("GetContent called");
-        logger.debug({ params });
-        const options = { params, ...baseOptions };
-        const resp = await axios.get("/v2/everything", options);
-        if (resp) {
-          if (resp.status === "ok") {
-            return resp.articles;
-          } else {
-            logger.warn(`Response status = ${resp.status}`);
-            return [];
-          }
-        }
-        logger.warn("No Response");
-        return [];
-      } catch (e) {
-        logger.error(e);
-        return [];
+  async getArticles(params = {}) {
+    try {
+      logger.debug(`GetContent called with ${JSON.stringify(params)}`);
+
+      const options = { params, headers: this.headers };
+      const resp = await axios.get(this.url, options);
+
+      if (!resp || !resp.data) {
+        logger.warn("No Response or data missing");
+        return null;
       }
-    };
+
+      const { status, totalResults, articles } = resp.data;
+      if (status !== "ok") {
+        logger.warn(`Status = ${status} was not ok`);
+      }
+      return { status, totalResults, articles };
+    } catch (e) {
+      logger.error(e);
+      return null;
+    }
   }
 }
 

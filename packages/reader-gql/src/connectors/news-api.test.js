@@ -9,25 +9,25 @@ describe("connectors/news-api", () => {
 
   test("makes get call with API_KEY as auth", async () => {
     process.env.API_KEY = "Super Secret String";
-    const path = "/v2/everything";
+    const url = "https://newsapi.org/v2/everything";
     const options = {
       params: {},
-      baseUrl: "https://newsapi.org",
       headers: {
-        Accepts: "applications/json",
+        Accept: "applications/json",
         Authorization: "Super Secret String",
       },
       params: {},
     };
     axios.get = jest.fn().mockResolvedValue({
-      status: "ok",
-      totalResults: 0,
-      articles: [],
+      data: {
+        status: "ok",
+        articles: [],
+      },
     });
     const nApi = new NewsApi();
-    const resp = await nApi.getContent();
+    const resp = await nApi.getArticles();
     expect(axios.get).toHaveBeenCalledTimes(1);
-    expect(axios.get).toHaveBeenCalledWith(path, options);
+    expect(axios.get).toHaveBeenCalledWith(url, options);
   });
 
   test("makes get call with query params", async () => {
@@ -37,51 +37,61 @@ describe("connectors/news-api", () => {
       three: "THREE",
     };
     process.env.API_KEY = "Super Secret String";
-    const path = "/v2/everything";
+    const url = "https://newsapi.org/v2/everything";
     const options = {
       params,
-      baseUrl: "https://newsapi.org",
       headers: {
-        Accepts: "applications/json",
+        Accept: "applications/json",
         Authorization: "Super Secret String",
       },
     };
     axios.get = jest.fn().mockResolvedValue({
-      status: "ok",
-      totalResults: 0,
-      articles: [],
+      data: {
+        status: "ok",
+        articles: [],
+      },
     });
     const nApi = new NewsApi();
-    const resp = await nApi.getContent(params);
+    const resp = await nApi.getArticles(params);
     expect(axios.get).toHaveBeenCalledTimes(1);
-    expect(axios.get).toHaveBeenCalledWith(path, options);
+    expect(axios.get).toHaveBeenCalledWith(url, options);
   });
 
-  test("Parses response correctly", async () => {
+  test("Parses response correctly and adds _id", async () => {
     const path = "/v2/everything";
     const options = {};
     const articles = [
-      { author: "fred flintsone", title: "Rocks I Have Seen" },
-      { author: "batman", title: "Capes - too dangerous?" },
-      { author: "coyote", title: "Acme Catalog" },
+      {
+        _id: "one",
+        author: "Fred Flintsone",
+        title: "Rocks I Have Seen",
+        url: "one",
+      },
+      {
+        _id: "two",
+        author: "batman",
+        title: "Capes - too dangerous?",
+        url: "two",
+      },
+      {
+        _id: "three",
+        author: "Wile E. Coyote",
+        title: "Acme Catalog",
+        url: "three",
+      },
     ];
     axios.get = jest.fn().mockResolvedValue({
-      status: "ok",
-      totalResults: 3,
-      articles,
+      data: {
+        status: "ok",
+        totalResults: 100,
+        articles,
+      },
     });
     const nApi = new NewsApi();
-    const resp = await nApi.getContent();
-    expect(resp).toEqual(expect.arrayContaining(articles));
-  });
-
-  test("Response not OK gives silent fail", async () => {
-    const path = "/v2/everything";
-    const options = {};
-    axios.get = jest.fn().mockResolvedValue({ status: "fubar" });
-    const nApi = new NewsApi();
-    const resp = await nApi.getContent();
-    expect(resp).toEqual([]);
+    const resp = await nApi.getArticles();
+    expect(resp.status).toBe("ok");
+    expect(resp.totalResults).toBe(100);
+    expect(resp.articles).toEqual(expect.arrayContaining(articles));
   });
 
   test("Empty response gives silent fail", async () => {
@@ -89,7 +99,25 @@ describe("connectors/news-api", () => {
     const options = {};
     axios.get = jest.fn().mockResolvedValue(null);
     const nApi = new NewsApi();
-    const resp = await nApi.getContent();
-    expect(resp).toEqual([]);
+    const resp = await nApi.getArticles();
+    expect(resp).toEqual(null);
+  });
+
+  test("Response with no data gives silent fail", async () => {
+    const path = "/v2/everything";
+    const options = {};
+    axios.get = jest.fn().mockResolvedValue({ foo: "bar" });
+    const nApi = new NewsApi();
+    const resp = await nApi.getArticles();
+    expect(resp).toEqual(null);
+  });
+
+  test("Response with status other than OK gives silent fail", async () => {
+    const path = "/v2/everything";
+    const options = {};
+    axios.get = jest.fn().mockResolvedValue({ data: { status: "fubar" } });
+    const nApi = new NewsApi();
+    const resp = await nApi.getArticles();
+    expect(resp.status).toBe("fubar");
   });
 });
