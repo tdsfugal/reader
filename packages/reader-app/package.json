@@ -15,17 +15,8 @@
   },
   "dependencies": {
     "gatsby": "^4.3.0",
+    "graphql": "^16.1.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1"
-  },
-  "devDependencies": {
-    "prettier": "^2.4.1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/gatsbyjs/gatsby-starter-hello-world"
-  },
-  "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby/issues"
   }
 }

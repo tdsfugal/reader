@@ -1,7 +1,12 @@
 {
   "name": "reader",
   "private": true,
+  "workspaces": [
+    "packages/reader-app",
+    "packages/reader-gql"
+  ],
   "devDependencies": {
-    "lerna": "^4.0.0"
+    "lerna": "^4.0.0",
+    "prettier": "^2.4.1"
   }
 }
