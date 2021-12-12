@@ -1,7 +1,7 @@
 const axios = require("axios");
 const logger = require("pino")();
 
-logger.level = "debug";
+// logger.level = "debug";
 
 class NewsApi {
   constructor() {
@@ -14,7 +14,7 @@ class NewsApi {
 
   async getArticles(params = {}) {
     try {
-      logger.debug(`GetContent called with ${JSON.stringify(params)}`);
+      logger.debug(`GetArticles called with ${JSON.stringify(params)}`);
 
       const options = { params, headers: this.headers };
       const resp = await axios.get(this.url, options);
