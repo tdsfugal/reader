@@ -1,6 +1,3 @@
-const { bookTypeDefs, bookResolvers } = require("./books");
+const { newsTypeDefs, newsResolvers } = require("./news");
 
-const typeDefs = [bookTypeDefs];
-const resolvers = { ...bookResolvers };
-
-module.exports = { typeDefs, resolvers };
+module.exports = { typeDefs: newsTypeDefs, resolvers: newsResolvers };
