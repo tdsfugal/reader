@@ -34,12 +34,12 @@ const newsTypeDefs = gql`
   }
 `;
 
-var count = 0;
+var responseIndex = 0;
 
 const newsResolvers = {
   Query: {
     getArticles: async (_, { args }, { newsApi }) => {
-      const _id = `response-${count++}`;
+      const _id = `resp-${responseIndex++}`;
 
       // TODO - get rid of these hardcodes`
 
