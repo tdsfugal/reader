@@ -22,15 +22,29 @@ const newsTypeDefs = gql`
     content: String
   }
 
+  input QueryParams {
+    q: String
+    qInTitle: String
+    sources: [String]
+    domains: [String]
+    excludeDomains: [String]
+    from: String
+    to: String
+    language: String
+    sortBy: String
+    pageSize: Int
+    page: Int
+  }
+
   type Response {
     _id: ID!
     status: String
     totalResults: Int
-    articles: [Article]
+    results: [Article]
   }
 
   type Query {
-    getArticles: Response
+    getArticles(params: QueryParams!): Response
   }
 `;
 
@@ -38,15 +52,10 @@ var responseIndex = 0;
 
 const newsResolvers = {
   Query: {
-    getArticles: async (_, { args }, { newsApi }) => {
+    getArticles: async (_, { params }, { newsApi }) => {
       const _id = `resp-${responseIndex++}`;
 
-      // TODO - get rid of these hardcodes`
-
-      const response = await newsApi.getArticles({
-        q: "Covid",
-        from: "2021-12-12",
-      });
+      const response = await newsApi.getArticles(params);
       if (response) {
         // GraphQL likes id values.
         const { status, totalResults, articles } = response;
@@ -56,7 +65,7 @@ const newsResolvers = {
             })
           : [];
         // Reassemble and ship in GraphQL schema format
-        return { _id, status, totalResults, articles: articlesWithId };
+        return { _id, status, totalResults, results: articlesWithId };
       } else {
         return { _id, status: "failed" };
       }
