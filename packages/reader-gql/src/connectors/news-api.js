@@ -16,9 +16,9 @@ class NewsApi {
       },
     };
 
-    this.getContent = async () => {
+    this.getContent = async (params = {}) => {
       try {
-        const options = { ...baseOptions };
+        const options = { params, ...baseOptions };
         const resp = await axios.get("/v2/everything", options);
       } catch (e) {
         console.log(e);
