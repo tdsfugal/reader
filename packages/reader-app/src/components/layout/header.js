@@ -1,4 +1,5 @@
 import React from "react"
+import { navigate } from "gatsby"
 
 import {
   HeaderView,
@@ -11,18 +12,22 @@ import {
 const TILE_DEFS = [
   {
     label: "Home",
-    link: "index",
+    path: "/",
   },
   {
-    label: "NewsApi",
-    link: "newsapi",
+    label: "News",
+    path: "/news",
   },
 ]
 
-export default function Header({ pageName }) {
-  const tiles = TILE_DEFS.map(({ label, link }) => (
-    <NavTileView active={pageName === link}>{label}</NavTileView>
+export default function Header({ pagePath }) {
+  // Each tile is a navigation button
+  const tiles = TILE_DEFS.map(({ label, path }) => (
+    <NavTileView active={pagePath === path} onClick={() => navigate(path)}>
+      {label}
+    </NavTileView>
   ))
+
   return (
     <HeaderView>
       <LogoView>FO</LogoView>

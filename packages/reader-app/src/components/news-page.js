@@ -1,10 +1,10 @@
 import React from "react"
 import Layout from "./layout"
 
-export default function HomePage({ pagePath }) {
+export default function NewsPage({ pagePath }) {
   return (
     <Layout pagePath={pagePath}>
-      <div>Home Page!</div>
+      <div>News Page!</div>
     </Layout>
   )
 }
