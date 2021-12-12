@@ -6,6 +6,9 @@
   "author": "T. Smith",
   "license": "MIT",
   "private": true,
+  "scripts": {
+    "test": "jest --watch"
+  },
   "dependencies": {
     "apollo-server": "^3.5.0",
     "graphql": "^16.1.0"
