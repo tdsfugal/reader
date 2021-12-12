@@ -1,5 +1,7 @@
 import styled from "@emotion/styled"
 
+const HEADER_HEIGHT = "6vh"
+
 export const LayoutView = styled.div`
   height: 100%;
   width: 100%;
@@ -9,8 +11,8 @@ export const LayoutView = styled.div`
   color: white;
 `
 
-export const HeaderView = styled.div`
-  flex: 0 0 60px;
+export const HeaderView = styled.header`
+  flex: 0 0 ${HEADER_HEIGHT};
   width: 100%;
   display: flex;
   flex-flow: row nowrap;
@@ -22,11 +24,11 @@ export const HeaderView = styled.div`
 
 export const LogoView = styled.div`
   flex: 0 0 120px;
-  height: 60px;
+  height: ${HEADER_HEIGHT};
   background-color: darkgreen;
   color: white;
   margin: 10px;
-  line-height: 60px;
+  line-height: ${HEADER_HEIGHT};
   font-size: 40px;
   font-family: sans-serif;
   text-align: center;
@@ -34,17 +36,17 @@ export const LogoView = styled.div`
 
 export const UserView = styled.div`
   flex: 0 0 120px;
-  height: 60px;
+  height: ${HEADER_HEIGHT};
   background-color: darkgreen;
   color: white;
   margin: 10px;
-  line-height: 60px;
+  line-height: ${HEADER_HEIGHT};
   font-size: 30px;
   font-family: sans-serif;
   text-align: center;
 `
 
-export const NavView = styled.div`
+export const NavView = styled.nav`
   flex: 1 1 60px;
   width: 100%;
   display: flex;
@@ -67,11 +69,13 @@ export const NavTileView = styled.div`
   text-align: center;
 `
 
-export const WorkspaceView = styled.div`
-  flex: 1 1 100%;
+export const WorkspaceView = styled.main`
+  flex: 1 0 94vh;
   width: 100%;
   display: flex;
   flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
   background-color: blue;
   color: white;
 `
