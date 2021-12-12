@@ -25,8 +25,19 @@ class NewsApi {
         logger.debug({ params });
         const options = { params, ...baseOptions };
         const resp = await axios.get("/v2/everything", options);
+        if (resp) {
+          if (resp.status === "ok") {
+            return resp.articles;
+          } else {
+            logger.warn(`Response status = ${resp.status}`);
+            return [];
+          }
+        }
+        logger.warn("No Response");
+        return [];
       } catch (e) {
-        console.log(e);
+        logger.error(e);
+        return [];
       }
     };
   }
