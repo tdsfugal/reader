@@ -2,6 +2,10 @@ const { gql } = require("apollo-server");
 
 const { newsApi } = require("../connectors");
 
+const logger = require("pino")();
+
+// logger.level = "debug";
+
 const newsTypeDefs = gql`
   type Content {
     title: String
