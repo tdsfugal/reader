@@ -2,12 +2,13 @@
   "name": "reader-gql",
   "version": "1.0.0",
   "description": "Simple graphQL endpoint for news content",
-  "main": "src/server.js",
+  "main": "src/index.js",
   "author": "T. Smith",
   "license": "MIT",
   "private": true,
   "scripts": {
-    "test": "jest --watch"
+    "test": "jest --watch",
+    "start": "node src/index.js"
   },
   "dependencies": {
     "apollo-server": "^3.5.0",
