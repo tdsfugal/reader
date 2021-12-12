@@ -1,7 +1,5 @@
 const { gql } = require("apollo-server");
 
-const { newsApi } = require("../connectors");
-
 const logger = require("pino")();
 
 // logger.level = "debug";
@@ -40,8 +38,11 @@ var count = 0;
 
 const newsResolvers = {
   Query: {
-    getArticles: async () => {
+    getArticles: async (_, { args }, { newsApi }) => {
       const _id = `response-${count++}`;
+
+      // TODO - get rid of these hardcodes`
+
       const response = await newsApi.getArticles({
         q: "Covid",
         from: "2021-12-12",
