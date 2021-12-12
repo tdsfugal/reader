@@ -1,9 +1,9 @@
 import React from "react"
 import Layout from "./layout"
 
-export default function NewsApiPage() {
+export default function NewsApiPage({ pageName }) {
   return (
-    <Layout>
+    <Layout pageName={pageName}>
       <div>NewsApiPage!</div>
     </Layout>
   )

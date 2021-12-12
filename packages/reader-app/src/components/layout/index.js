@@ -1,7 +1,14 @@
 import React from "react"
 
-import { LayoutView } from "../../styles"
+import { LayoutView, WorkspaceView } from "../../styles"
 
-export default function Layout({ children }) {
-  return <LayoutView>{children}</LayoutView>
+import Header from "./header"
+
+export default function Layout({ children, pageName }) {
+  return (
+    <LayoutView>
+      <Header pageName={pageName} />
+      <WorkspaceView>{children}</WorkspaceView>
+    </LayoutView>
+  )
 }

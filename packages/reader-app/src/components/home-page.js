@@ -1,9 +1,9 @@
 import React from "react"
 import Layout from "./layout"
 
-export default function HomePage() {
+export default function HomePage({ pageName }) {
   return (
-    <Layout>
+    <Layout pageName={pageName}>
       <div>HomePage!</div>
     </Layout>
   )
