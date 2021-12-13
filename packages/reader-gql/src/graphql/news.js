@@ -2,7 +2,7 @@ const { gql } = require("apollo-server");
 
 const {
   transformEverythingParams,
-  transformHeadlineParams,
+  transformHeadlinesParams,
   repackResponse,
 } = require("./util");
 
@@ -43,15 +43,10 @@ const newsTypeDefs = gql`
   }
 
   input HeadlineParams {
-    q: String
-    qInTitle: String
+    country: String
+    category: String
     sources: [String]
-    domains: [String]
-    excludeDomains: [String]
-    from: String
-    to: String
-    language: String
-    sortBy: String
+    q: String
     pageSize: Int
     page: Int
   }
@@ -85,7 +80,7 @@ const newsResolvers = {
       return repackResponse(response);
     },
     getHeadlines: async (_, { params = {} }, { newsApi }) => {
-      const queryParams = transformHeadlineParams(params);
+      const queryParams = transformHeadlinesParams(params);
       logger.debug(queryParams);
       const response = await newsApi.getHeadlines(queryParams);
       return repackResponse(response);

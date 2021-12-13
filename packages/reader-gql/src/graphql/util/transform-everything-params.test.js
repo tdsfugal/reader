@@ -1,4 +1,4 @@
-const { transformEverythingParams } = require("./util");
+const { transformEverythingParams } = require("./transform-everything-params");
 
 describe("graphql/news/transformEverythingParams", () => {
   test("Returns simple param fields unmodified", () => {
