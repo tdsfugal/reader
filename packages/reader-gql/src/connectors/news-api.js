@@ -6,7 +6,7 @@ const logger = require("pino")();
 class NewsApi {
   constructor() {
     this.everything_url = "https://newsapi.org/v2/everything";
-    this.headlines_url = "https://newsapi.org/v2/topHeadlines";
+    this.headlines_url = "https://newsapi.org/v2/top-headlines";
     this.headers = {
       Accept: "applications/json",
       Authorization: process.env.API_KEY,
@@ -35,7 +35,7 @@ class NewsApi {
     }
   }
 
-  // This is an internal method to be called by other methods.
+  // This is an internal method, not to be called from outside this class.
   async _call(url, params = {}) {
     try {
       const options = { params, headers: this.headers };

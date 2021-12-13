@@ -1,5 +1,11 @@
 const { gql } = require("apollo-server");
 
+const {
+  transformEverythingParams,
+  transformHeadlineParams,
+  repackResponse,
+} = require("./util");
+
 const logger = require("pino")();
 
 // logger.level = "debug";
@@ -22,7 +28,21 @@ const newsTypeDefs = gql`
     content: String
   }
 
-  input QueryParams {
+  input EverythingParams {
+    q: String
+    qInTitle: String
+    sources: [String]
+    domains: [String]
+    excludeDomains: [String]
+    from: String
+    to: String
+    language: String
+    sortBy: String
+    pageSize: Int
+    page: Int
+  }
+
+  input HeadlineParams {
     q: String
     qInTitle: String
     sources: [String]
@@ -44,64 +64,33 @@ const newsTypeDefs = gql`
   }
 
   type Query {
-    getArticles(params: QueryParams!): Response
+    getEverything(params: EverythingParams!): Response
+    getHeadlines(params: HeadlineParams!): Response
   }
 `;
 
-var responseIndex = 0;
-
+// Because the params are delivered via GraphQL the data form is validated
+// already.  Although there are a few fields that need range and value
+// checks the News API will perform them and return an error. So, for speed
+// of development ans simplicity no real validation will occur here.
+// Tranformation is still needed, though. Some of the fields are in array
+// form in GrapqhQL for easier handling. These need to be transformed into
+// comma separated values in a string. This function does that.
 const newsResolvers = {
   Query: {
-    getArticles: async (_, { params = {} }, { newsApi }) => {
-      const _id = `resp-${responseIndex++}`;
-
-      // Because the params are delivered via GraphQL the data form is validated
-      // already.  Although there are a few fields that need range and value
-      // checks the News API will perform them and return an error. So, for speed
-      // of development ans simplicity no real validation will occur here.
-      // Tranformation is still needed, though. Some of the fields are in array
-      // form in GrapqhQL for easier handling. These need to be transformed into
-      // comma separated values in a string. This function does that.
-      const queryParams = transformParams(params);
+    getEverything: async (_, { params = {} }, { newsApi }) => {
+      const queryParams = transformEverythingParams(params);
       logger.debug(queryParams);
-
-      // Call the newsAPI to get articles.
-      const response = await newsApi.getArticles(queryParams);
-
-      if (response) {
-        // Add _id values.  Apollo Client uses them to manage merges into the cache.
-        const { status, totalResults, articles } = response;
-        const articlesWithId = articles
-          ? articles.map((a) => {
-              return { _id: a.url, ...a };
-            })
-          : [];
-
-        // Reassemble and ship in GraphQL schema format
-        return { _id, status, totalResults, results: articlesWithId };
-      } else {
-        return { _id, status: "failed" };
-      }
+      const response = await newsApi.getEverything(queryParams);
+      return repackResponse(response);
+    },
+    getHeadlines: async (_, { params = {} }, { newsApi }) => {
+      const queryParams = transformHeadlineParams(params);
+      logger.debug(queryParams);
+      const response = await newsApi.getHeadlines(queryParams);
+      return repackResponse(response);
     },
   },
 };
 
-function transformParams(params) {
-  // This function begins by making a copy of the original params.
-  const queryParams = { ...params };
-
-  if (queryParams.sources) {
-    queryParams.sources = queryParams.sources.join(", ");
-  }
-
-  if (queryParams.domains) {
-    queryParams.domains = queryParams.domains.join(", ");
-  }
-
-  if (queryParams.excludeDomains) {
-    queryParams.excludeDomains = queryParams.excludeDomains.join(", ");
-  }
-  return queryParams;
-}
-
-module.exports = { newsTypeDefs, newsResolvers, transformParams };
+module.exports = { newsTypeDefs, newsResolvers };

@@ -1,6 +1,6 @@
-const { newsResolvers, transformParams } = require("./news");
+const { transformEverythingParams } = require("./util");
 
-describe("graphql/news/transformParams", () => {
+describe("graphql/news/transformEverythingParams", () => {
   test("Returns simple param fields unmodified", () => {
     const expected = {
       q: "Nigeria",
@@ -13,28 +13,30 @@ describe("graphql/news/transformParams", () => {
       page: 2,
     };
     const inputParams = { ...expected };
-    const actual = transformParams(inputParams);
+    const actual = transformEverythingParams(inputParams);
     expect(actual).toEqual(expected);
   });
 
   test("Packages sources array into string form", () => {
     const sources = ["one", "two", "three"];
     const expected = "one, two, three";
-    const { sources: actual } = transformParams({ sources });
+    const { sources: actual } = transformEverythingParams({ sources });
     expect(actual).toEqual(expected);
   });
 
   test("Packages domains array into string form", () => {
     const domains = ["one", "two", "three"];
     const expected = "one, two, three";
-    const { domains: actual } = transformParams({ domains });
+    const { domains: actual } = transformEverythingParams({ domains });
     expect(actual).toEqual(expected);
   });
 
   test("Packages exclueDomains array into string form", () => {
     const excludeDomains = ["one", "two", "three"];
     const expected = "one, two, three";
-    const { excludeDomains: actual } = transformParams({ excludeDomains });
+    const { excludeDomains: actual } = transformEverythingParams({
+      excludeDomains,
+    });
     expect(actual).toEqual(expected);
   });
 
@@ -45,9 +47,3 @@ describe("graphql/news/transformParams", () => {
   // mission-critical system, these cases should be handled, and the
   // handling tested
 });
-
-// describe("graphql/news/newsResolvers", () => {
-//   test("GetArticles", async () => {
-//     expect(true).toBe(false);
-//   });
-// });
