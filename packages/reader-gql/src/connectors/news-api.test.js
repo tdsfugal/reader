@@ -120,4 +120,11 @@ describe("connectors/news-api", () => {
     const resp = await nApi.getArticles();
     expect(resp.status).toBe("fubar");
   });
+
+  // NOTE - there are many other edge cases to handle and test.  Responses can
+  // include status codes 200, 400, 401, 429, and 500.  Error codes are well
+  // documented in the newsApi docs.  Since this is just a coding assignment
+  // I haven't completed the full set.
+
+  // TODO - complete the full set of expected behaviors fron newsApi.
 });
