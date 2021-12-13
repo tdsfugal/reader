@@ -42,7 +42,7 @@ const newsTypeDefs = gql`
     page: Int
   }
 
-  input HeadlineParams {
+  input HeadlinesParams {
     country: String
     category: String
     sources: [String]
@@ -60,7 +60,7 @@ const newsTypeDefs = gql`
 
   type Query {
     getEverything(params: EverythingParams!): Response
-    getHeadlines(params: HeadlineParams!): Response
+    getHeadlines(params: HeadlinesParams!): Response
   }
 `;
 

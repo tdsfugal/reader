@@ -15,8 +15,8 @@ const TILE_DEFS = [
     path: "/",
   },
   {
-    label: "News",
-    path: "/news",
+    label: "Headlines",
+    path: "/headlines",
   },
 ]
 
