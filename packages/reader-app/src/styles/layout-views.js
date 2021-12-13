@@ -60,11 +60,11 @@ export const NavView = styled.nav`
 export const NavTileView = styled.div`
   flex: 0 0 140px;
   height: 45px;
-  background-color: ${({ active }) => (active ? "lightgray" : "lightgreen")};
   margin: 10px;
-  color: white;
+  background-color: ${({ active }) => (active ? "#999" : "#888")};
+  color: ${({ active }) => (active ? "#def" : "black")};
   line-height: 45px;
-  font-size: 30px;
+  font-size: 25px;
   font-family: sans-serif;
   text-align: center;
 `
