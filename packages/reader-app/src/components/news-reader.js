@@ -31,7 +31,7 @@ const NewsReader = () => {
       params: {
         q: "nigeria",
         // qInTitle:
-        // sources: [String]
+        sources: ["us", "en", "gb"],
         // domains: [String]
         // excludeDomains: [String]
         from: "2021-12-12",
