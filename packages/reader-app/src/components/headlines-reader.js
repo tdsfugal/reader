@@ -1,6 +1,10 @@
 import React from "react"
 import { useQuery, gql } from "@apollo/client"
 
+import { ArticlesView } from "../styles"
+
+import { Article } from "./article"
+
 const GET_HEADLINES = gql`
   query GetHeadlines($params: HeadlinesParams!) {
     getHeadlines(params: $params) {
@@ -40,9 +44,38 @@ const HeadlinesReader = () => {
     return <div>HEADLINES READER</div>
   }
 
-  console.log(data)
+  const { results = [] } = data.getHeadlines
 
-  return <div>GOT DATA</div>
+  const articles = results.map(result => {
+    const {
+      _id,
+      title,
+      author,
+      description,
+      url,
+      urlToImage,
+      publishedAt,
+      content,
+      source,
+    } = result
+
+    return (
+      <Article
+        key={_id}
+        _id={_id}
+        title={title}
+        author={author}
+        description={description}
+        url={url}
+        urlToImage={urlToImage}
+        publishedAt={publishedAt}
+        content={content}
+        source={source}
+      />
+    )
+  })
+
+  return <ArticlesView>{articles}</ArticlesView>
 }
 
 export default HeadlinesReader
