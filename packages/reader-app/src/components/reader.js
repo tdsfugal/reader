@@ -1,5 +1,6 @@
-import React from "react"
-import { useQuery, gql } from "@apollo/client"
+import React, { useEffect } from "react"
+import { useLazyQuery, gql, useReactiveVar } from "@apollo/client"
+import { queryKeywordsVar } from "../state"
 
 import { ArticlesView } from "../styles"
 
@@ -30,26 +31,35 @@ const GET_TOP_ARTICLES = gql`
 `
 
 const Reader = ({ country, category = null }) => {
-  const { loading, error, data } = useQuery(GET_TOP_ARTICLES, {
-    variables: {
-      params: category
-        ? {
-            category: category,
-            country: country,
-          }
-        : {
-            country: country,
-          },
-    },
-  })
+  // This hook listens for changes in the queryKeywordsVar.  These changes are
+  // added by the search field.
+  const queryKeywords = useReactiveVar(queryKeywordsVar)
 
-  if (loading || error) {
+  // This lazy query does not run on initial render.  It is run immediately
+  // after the initial render by the useEffect hook, and again whenever one of
+  // the query parameters changes.
+  const [getResults, { loading, error, data }] = useLazyQuery(GET_TOP_ARTICLES)
+
+  // This hook fires on change in one of the three parameters
+  useEffect(() => {
+    let params = {}
+    if (queryKeywords) params.q = queryKeywords
+    if (category) params.category = category
+    if (country) params.country = country
+    getResults({ variables: { params } })
+  }, [queryKeywords, category, country])
+
+  // This is a boilerplate check that guards against queries in flight and botched
+  // queries.
+  if (loading || error || !data) {
     if (error) console.log(error)
     return <div>READER</div>
   }
 
+  // Results are a list of article metadata objects.
   const { results } = data.getHeadlines
 
+  // This map converts the metadata to renderable React elements.
   const articles = results
     ? results.map(result => {
         const {
@@ -81,6 +91,7 @@ const Reader = ({ country, category = null }) => {
       })
     : null
 
+  // The elements are displayed in a carousell of sorts.
   return <ArticlesView>{articles}</ArticlesView>
 }
 

@@ -1,5 +1,7 @@
 import React, { useState } from "react"
+
 import { SearchView } from "../styles"
+import { queryKeywordsVar } from "../state"
 
 export default function Search() {
   const [val, setVal] = useState("")
@@ -11,13 +13,10 @@ export default function Search() {
 
   const handleKeyPress = e => {
     if (e.charCode === 13) {
-      console.log("Enter Key Pressed")
-      console.log(e.target.value)
+      queryKeywordsVar(e.target.value)
       setVal("")
     }
   }
-
-  console.log(val)
 
   return (
     <SearchView

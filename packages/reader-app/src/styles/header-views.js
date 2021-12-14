@@ -28,7 +28,7 @@ export const LogoView = styled.div`
 export const SearchView = styled.input`
   flex: 0 0 120px;
   height: ${HEADER_HEIGHT};
-  background-color: #00693e;
+  background-color: #449160;
   color: white;
   margin: 10px;
   line-height: ${HEADER_HEIGHT};
