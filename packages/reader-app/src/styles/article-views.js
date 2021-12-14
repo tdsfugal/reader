@@ -33,9 +33,7 @@ export const UpperArticleView = styled.div`
 export const PhotoView = styled.div`
   height: 100%;
   width: 100%;
-  background-color: red;
   overflow: hidden;
-  overflow-wrap: anywhere;
 `
 
 export const ContentView = styled.div`
