@@ -14,6 +14,7 @@ export const WorkspaceView = styled.main`
   flex-flow: row nowrap;
   align-items: center;
   justify-content: center;
+  overflow-y: scroll;
   background-color: #ddd;
   color: white;
 `

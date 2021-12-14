@@ -43,17 +43,18 @@ const Reader = ({ country, category = null }) => {
   // This hook fires on change in one of the three parameters
   useEffect(() => {
     let params = {}
-    if (queryKeywords) params.q = queryKeywords
+    if (queryKeywords && queryKeywords.length > 0) params.q = queryKeywords
     if (category) params.category = category
     if (country) params.country = country
+    console.log(params)
     getResults({ variables: { params } })
-  }, [queryKeywords, category, country])
+  }, [queryKeywords, category, country, getResults])
 
   // This is a boilerplate check that guards against queries in flight and botched
   // queries.
   if (loading || error || !data) {
     if (error) console.log(error)
-    return <div>READER</div>
+    return null
   }
 
   // Results are a list of article metadata objects.

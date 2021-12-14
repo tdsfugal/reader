@@ -35,6 +35,7 @@ export const SearchView = styled.input`
   font-size: 0.9em;
   font-family: sans-serif;
   text-align: center;
+  color: #fff;
 `
 
 export const NavView = styled.nav`
@@ -55,7 +56,7 @@ export const NavTileView = styled.div`
   margin: 1em;
   padding: 0.5em
   background-color: #00693e;
-  color: ${({ active }) => (active ? "#def" : "black")};
+  color: ${({ active }) => (active ? "#fff" : "#ccc")};
   line-height: 40px;
   font-size: 18px;
   font-family: Arial;
