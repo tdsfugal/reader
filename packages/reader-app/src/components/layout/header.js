@@ -1,14 +1,9 @@
 import React from "react"
 import { navigate } from "gatsby"
 import NAV_DEFS from "./nav-defs"
+import Search from "../search"
 
-import {
-  HeaderView,
-  LogoView,
-  NavView,
-  NavTileView,
-  UserView,
-} from "../../styles"
+import { HeaderView, LogoView, NavView, NavTileView } from "../../styles"
 
 export default function Header({ pageName }) {
   // Each tile is a navigation button
@@ -24,9 +19,9 @@ export default function Header({ pageName }) {
 
   return (
     <HeaderView>
-      <LogoView key="logo">FO</LogoView>
+      <LogoView key="logo">FP</LogoView>
       <NavView key="nav">{tiles}</NavView>
-      <UserView key="user">Guest</UserView>
+      <Search />
     </HeaderView>
   )
 }
