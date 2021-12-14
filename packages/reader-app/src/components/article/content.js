@@ -14,12 +14,16 @@ const Content = ({ content }) => {
     const text = words.join(" ")
     return (
       <ContentView>
-        <ContentTextView>{`${text} ...`}</ContentTextView>
         <ContentInstructionView>Read more!</ContentInstructionView>
+        <ContentTextView>{`${text} ...`}</ContentTextView>
       </ContentView>
     )
   } else {
-    return null
+    return (
+      <ContentView>
+        <ContentInstructionView>Read more!</ContentInstructionView>
+      </ContentView>
+    )
   }
 }
 
