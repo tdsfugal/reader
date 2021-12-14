@@ -1,5 +1,6 @@
 import React from "react"
 import { navigate } from "gatsby"
+import NAV_DEFS from "./nav-defs"
 
 import {
   HeaderView,
@@ -9,20 +10,9 @@ import {
   UserView,
 } from "../../styles"
 
-const TILE_DEFS = [
-  {
-    label: "Home",
-    path: "/",
-  },
-  {
-    label: "Headlines",
-    path: "/headlines",
-  },
-]
-
 export default function Header({ pagePath }) {
   // Each tile is a navigation button
-  const tiles = TILE_DEFS.map(({ label, path }) => (
+  const tiles = NAV_DEFS.map(({ label, path }) => (
     <NavTileView
       key={label}
       active={pagePath === path}

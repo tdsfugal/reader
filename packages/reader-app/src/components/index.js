@@ -1,3 +1,2 @@
-export { default as HomePage } from "./home-page"
-export { default as HeadlinesPage } from "./headlines-page"
-export { default as NotFoundPage } from "./not-found-page"
+export { default as Reader } from "./reader"
+export { default as Layout } from "./layout"

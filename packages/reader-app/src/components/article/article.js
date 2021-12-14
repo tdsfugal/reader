@@ -36,19 +36,26 @@ const Article = ({
     date = `${dArr[0]}, ${dArr[1]} ${dArr[2]}, ${dArr[3]}`
   }
 
+  let upper = null
+  if (active) {
+    if (content) {
+      upper = <Content content={content} />
+    }
+  } else {
+    if (urlToImage) {
+      upper = <Photo url={urlToImage} />
+    } else {
+      upper = <Content content={content} />
+    }
+  }
+
   return (
     <ArticleView
       onClick={redirect}
       onMouseEnter={() => setActive(true)}
       onMouseLeave={() => setActive(false)}
     >
-      <UpperArticleView>
-        {active && content ? (
-          <Content content={content} />
-        ) : (
-          <Photo url={urlToImage} />
-        )}
-      </UpperArticleView>
+      <UpperArticleView>{upper}</UpperArticleView>
       <LowerArticleView>
         <HeadlineView>
           <Dateline date={date} />

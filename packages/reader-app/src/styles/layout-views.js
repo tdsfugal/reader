@@ -7,8 +7,6 @@ export const LayoutView = styled.div`
   width: 100%;
   display: flex;
   flex-flow: column nowrap;
-  background-color: blue;
-  color: white;
 `
 
 export const HeaderView = styled.header`
@@ -18,14 +16,14 @@ export const HeaderView = styled.header`
   flex-flow: row nowrap;
   align-items: center;
   justify-content: center;
-  background-color: green;
+  background-color: #00693e;
   color: white;
 `
 
 export const LogoView = styled.div`
   flex: 0 0 120px;
   height: ${HEADER_HEIGHT};
-  background-color: darkgreen;
+  background-color: #00693e;
   color: white;
   margin: 10px;
   line-height: ${HEADER_HEIGHT};
@@ -37,7 +35,7 @@ export const LogoView = styled.div`
 export const UserView = styled.div`
   flex: 0 0 120px;
   height: ${HEADER_HEIGHT};
-  background-color: darkgreen;
+  background-color: #00693e;
   color: white;
   margin: 10px;
   line-height: ${HEADER_HEIGHT};
@@ -53,19 +51,21 @@ export const NavView = styled.nav`
   flex-flow: row nowrap;
   align-items: center;
   justify-content: center;
-  background-color: green;
+  background-color: #00693e;
   color: white;
 `
 
 export const NavTileView = styled.div`
-  flex: 0 0 140px;
-  height: 45px;
-  margin: 10px;
-  background-color: ${({ active }) => (active ? "#999" : "#888")};
+  flex: 0 0 auto;
+  height: 30px;
+  margin: 1em;
+  padding: 0.5em
+  background-color: #00693e;
   color: ${({ active }) => (active ? "#def" : "black")};
-  line-height: 45px;
-  font-size: 25px;
-  font-family: sans-serif;
+  line-height: 40px;
+  font-size: 18px;
+  font-family: Arial;
+  font-weight: Bold;
   text-align: center;
 `
 
@@ -76,6 +76,6 @@ export const WorkspaceView = styled.main`
   flex-flow: row nowrap;
   align-items: center;
   justify-content: center;
-  background-color: blue;
+  background-color: #ddd;
   color: white;
 `
