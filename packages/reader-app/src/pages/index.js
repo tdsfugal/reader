@@ -3,7 +3,7 @@ import { Layout, Reader } from "../components"
 
 export default function headlines() {
   return (
-    <Layout pagePath="/">
+    <Layout pageName="Headlines">
       <Reader country="gb" />
     </Layout>
   )

@@ -3,7 +3,7 @@ import { Layout, Reader } from "../components"
 
 export default function Health() {
   return (
-    <Layout pagePath="/health">
+    <Layout pageName="Health">
       <Reader country="gb" category="health" />
     </Layout>
   )

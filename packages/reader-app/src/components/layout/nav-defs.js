@@ -1,34 +1,34 @@
 const NAV_DEFS = [
   {
-    label: "Headlines",
+    name: "Headlines",
     path: "/",
   },
   {
-    label: "Business",
+    name: "Business",
     path: "/business",
   },
   {
-    label: "Entertainment",
+    name: "Entertainment",
     path: "/entertainment",
   },
   {
-    label: "General",
+    name: "General",
     path: "/general",
   },
   {
-    label: "Health",
+    name: "Health",
     path: "/health",
   },
   {
-    label: "Science",
+    name: "Science",
     path: "/science",
   },
   {
-    label: "Sports",
+    name: "Sports",
     path: "/sports",
   },
   {
-    label: "Technology",
+    name: "Technology",
     path: "/technology",
   },
 ]

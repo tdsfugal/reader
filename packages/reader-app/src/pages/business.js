@@ -3,7 +3,7 @@ import { Layout, Reader } from "../components"
 
 export default function Business() {
   return (
-    <Layout pagePath="/business">
+    <Layout pageName="Business">
       <Reader country="gb" category="business" />
     </Layout>
   )

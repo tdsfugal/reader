@@ -3,7 +3,7 @@ import { Layout, Reader } from "../components"
 
 export default function general() {
   return (
-    <Layout pagePath="/general">
+    <Layout pageName="General">
       <Reader country="gb" category="general" />
     </Layout>
   )

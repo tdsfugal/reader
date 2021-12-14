@@ -3,7 +3,7 @@ import { Layout, Reader } from "../components"
 
 export default function Science() {
   return (
-    <Layout pagePath="/science">
+    <Layout pageName="Science">
       <Reader country="gb" category="science" />
     </Layout>
   )

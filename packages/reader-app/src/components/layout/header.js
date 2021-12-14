@@ -10,15 +10,15 @@ import {
   UserView,
 } from "../../styles"
 
-export default function Header({ pagePath }) {
+export default function Header({ pageName }) {
   // Each tile is a navigation button
-  const tiles = NAV_DEFS.map(({ label, path }) => (
+  const tiles = NAV_DEFS.map(({ name, path }) => (
     <NavTileView
-      key={label}
-      active={pagePath === path}
+      key={name}
+      active={pageName === name}
       onClick={() => navigate(path)}
     >
-      {label}
+      {name}
     </NavTileView>
   ))
 
